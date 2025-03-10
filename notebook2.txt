@@ -1,0 +1,36 @@
+import qiskit
+from qiskit import *
+from qiskit.visualization import plot_bloch_multivector, visualize_transition
+from qiskit_aer import Aer
+
+In the next line we are creating an new Quantum circuit with only one qubit with initial state  $ \begin{equation}
+\begin{bmatrix}
+0 \\
+1 
+\end{bmatrix}
+\end{equation}= [0,1] = \ket{1} $.
+
+qc = QuantumCircuit(1)
+initial_state = [0,1]    
+qc.initialize(initial_state, 0)
+
+Then we can apply an X-gate on a $\ket{0}$ qubit.
+
+qc.x(0)   #here the 0 means that it is the first qubit (the qubit index like in lists), don't misunderstand with the 0 state.
+
+and do graphic the result. 
+
+qc.draw('mpl')     # here mpl strings means that we will use matplotlib to draw the circuit. 
+
+Getting a backend for the circuit (simulator or realtime system)
+
+backend = Aer.get_backend('statevector_simulator
+
+Executing the circuit using the backend
+
+compiled_circuit = transpile(qc,backend)
+out = backend.run(compiled_circuit).result().get_statevector()
+
+plotting using a bloch sphere
+
+plot_bloch_multivector(out)
